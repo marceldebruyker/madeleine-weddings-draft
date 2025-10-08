@@ -103,9 +103,82 @@ const subline =
             </button>
           </div>
         </div>
-      </div>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const initHeroSlider = () => {
+      const sliderRoot = document.querySelector('[data-hero-slider]');
+      if (!sliderRoot) return;
+
+      const scroller = sliderRoot.querySelector('[data-hero-scroller]');
+      const indicator = sliderRoot.querySelector('[data-hero-indicator]');
+      const progress = sliderRoot.querySelector('[data-hero-progress]');
+      const prevBtn = sliderRoot.querySelector('[data-prev]');
+      const nextBtn = sliderRoot.querySelector('[data-next]');
+
+      if (!scroller || !indicator || !progress) return;
+
+      const slides = Array.from(scroller.children);
+      let index = 0;
+      const maxIndex = Math.max(0, slides.length - 1);
+
+      const updateIndicator = () => {
+        indicator.textContent = `${index + 1} / ${slides.length}`;
+        const percentage = maxIndex === 0 ? 100 : (index / maxIndex) * 100;
+        progress.style.width = `${Number.isFinite(percentage) ? percentage : 0}%`;
+      };
+
+      const setActiveSlide = (nextIndex, behavior = 'smooth') => {
+        index = Math.min(Math.max(0, nextIndex), maxIndex);
+        scroller.scrollTo({ left: index * scroller.clientWidth, behavior });
+        slides.forEach((slide, slideIndex) => {
+          slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true');
+        });
+        updateIndicator();
+      };
+
+      prevBtn?.addEventListener('click', () => setActiveSlide(index - 1));
+      nextBtn?.addEventListener('click', () => setActiveSlide(index + 1));
+
+      scroller.addEventListener(
+        'scroll',
+        () => {
+          const nextIndex = Math.round(scroller.scrollLeft / scroller.clientWidth);
+          if (Number.isFinite(nextIndex) && nextIndex !== index) {
+            index = nextIndex;
+            updateIndicator();
+          }
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('resize', () => setActiveSlide(index, 'auto'));
+
+      scroller.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          setActiveSlide(index - 1);
+        }
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          setActiveSlide(index + 1);
+        }
+      });
+
+      slides[0]?.setAttribute('aria-hidden', 'false');
+      updateIndicator();
+    };
+
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', initHeroSlider, { once: true });
+    } else {
+      initHeroSlider();
+    }
+  })();
+</script>
 
 <script type="module">
   import '../scripts/hero-slider.ts';
