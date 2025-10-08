@@ -1,28 +1,13 @@
 ---
-const defaultHeroImages = [
-  {
-    src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Paar bei goldenem Licht'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Freunde stoßen auf das Paar an'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Paar Hand in Hand'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Detailaufnahme eines Bouquets'
-  }
-];
+import { HERO_FALLBACK_IMAGES, HERO_STATS } from '../data/site';
 
 const { images = [] } = Astro.props;
 
-const heroImages = (Array.isArray(images) && images.length > 0 ? images : defaultHeroImages).map((image, index) => ({
-  src: image?.src ?? defaultHeroImages[index % defaultHeroImages.length].src,
-  alt: image?.alt ?? defaultHeroImages[index % defaultHeroImages.length].alt
+const fallbackImages = HERO_FALLBACK_IMAGES;
+
+const heroImages = (Array.isArray(images) && images.length > 0 ? images : fallbackImages).map((image, index) => ({
+  src: image?.src ?? fallbackImages[index % fallbackImages.length].src,
+  alt: image?.alt ?? fallbackImages[index % fallbackImages.length].alt
 }));
 
 const headline =
@@ -54,18 +39,12 @@ const subline =
         <a href="/portfolio" class="btn-secondary">Portfolio entdecken</a>
       </div>
       <dl class="mt-12 grid grid-cols-2 gap-6 text-sm text-brand-cream/70 sm:grid-cols-3">
-        <div>
-          <dt class="font-semibold text-brand-cream">120+ Paare</dt>
-          <dd>vertrauen auf Madeleine für ihre Erinnerungen</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-brand-cream">7 Jahre Erfahrung</dt>
-          <dd>mit Boutique-Hochzeiten &amp; Elopements</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-brand-cream">100% Fokus</dt>
-          <dd>auf Emotionen, Ästhetik und Details</dd>
-        </div>
+        {HERO_STATS.map((stat) => (
+          <div>
+            <dt class="font-semibold text-brand-cream">{stat.title}</dt>
+            <dd>{stat.description}</dd>
+          </div>
+        ))}
       </dl>
     </div>
     <div class="relative w-full max-w-xl" data-hero-slider>
@@ -128,61 +107,4 @@ const subline =
   </div>
 </section>
 
-<script is:inline>
-  const sliderRoot = document.querySelector('[data-hero-slider]');
-  const scroller = sliderRoot?.querySelector('[data-hero-scroller]');
-  const indicator = sliderRoot?.querySelector('[data-hero-indicator]');
-  const progress = sliderRoot?.querySelector('[data-hero-progress]');
-  const prevBtn = sliderRoot?.querySelector('[data-prev]');
-  const nextBtn = sliderRoot?.querySelector('[data-next]');
-
-  if (sliderRoot && scroller && indicator && progress) {
-    let index = 0;
-    const slides = Array.from(scroller.children);
-    const maxIndex = slides.length - 1;
-
-    const updateIndicator = () => {
-      indicator.textContent = `${index + 1} / ${slides.length}`;
-      const denominator = Math.max(1, maxIndex);
-      const percentage = maxIndex === 0 ? 100 : (index / denominator) * 100;
-      progress.style.width = `${Number.isFinite(percentage) ? percentage : 0}%`;
-    };
-
-    const scrollToIndex = (nextIndex, opts = { behavior: 'smooth' }) => {
-      index = Math.max(0, Math.min(maxIndex, nextIndex));
-      scroller.scrollTo({ left: index * scroller.clientWidth, behavior: opts.behavior });
-      updateIndicator();
-      slides.forEach((slide, slideIndex) => slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true'));
-    };
-
-    prevBtn?.addEventListener('click', () => scrollToIndex(index - 1));
-    nextBtn?.addEventListener('click', () => scrollToIndex(index + 1));
-
-    const handleScroll = () => {
-      const newIndex = Math.round(scroller.scrollLeft / scroller.clientWidth);
-      if (newIndex !== index) {
-        index = newIndex;
-        updateIndicator();
-      }
-    };
-
-    scroller.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', () => scrollToIndex(index, { behavior: 'instant' }));
-
-    const handleKeydown = (event) => {
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        scrollToIndex(index - 1);
-      }
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        scrollToIndex(index + 1);
-      }
-    };
-
-    scroller.addEventListener('keydown', handleKeydown);
-
-    updateIndicator();
-    slides[0]?.setAttribute('aria-hidden', 'false');
-  }
-</script>
+<script type="module" src={new URL('../scripts/hero-slider.ts', import.meta.url)} />

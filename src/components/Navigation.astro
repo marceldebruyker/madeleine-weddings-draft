@@ -1,14 +1,5 @@
 ---
-const navLinks = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/ueber-mich', label: 'Über mich' },
-  { href: '/leistungen-preise', label: 'Leistungen & Preise' },
-  { href: '/journal', label: 'Journal' }
-];
-
-const socials = [
-  { href: 'https://www.instagram.com', label: 'Instagram' }
-];
+import { NAV_LINKS, SOCIAL_LINKS } from '../data/site';
 ---
 <header class="fixed inset-x-0 top-0 z-40">
   <div class="mx-auto max-w-6xl px-6">
@@ -23,7 +14,7 @@ const socials = [
         </div>
       </a>
       <nav class="hidden items-center gap-8 text-sm font-medium text-brand-cream/70 md:flex">
-        {navLinks.map((link) => (
+        {NAV_LINKS.map((link) => (
           <a href={link.href} class="group relative transition duration-300 hover:text-brand-cream">
             <span class="relative z-10">{link.label}</span>
             <span class="absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 bg-brand-bloom/80 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true"></span>
@@ -85,7 +76,7 @@ const socials = [
       </div>
       <nav class="mt-16 flex-1 overflow-y-auto">
         <ul class="space-y-6 pr-2 text-3xl font-display tracking-tight">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <li>
               <a href={link.href} class="block transition duration-300 hover:text-brand-bloom" data-mobile-close>
                 {link.label}
@@ -104,7 +95,7 @@ const socials = [
         <div class="mt-6 rounded-2xl border border-white/10 bg-brand-night/90 px-5 py-4 text-center">
           <p class="text-xs uppercase tracking-[0.4em] text-brand-cream/50">Folge Madeleine auf</p>
           <div class="mt-4 flex items-center justify-center">
-            {socials.map((social) => (
+            {SOCIAL_LINKS.map((social) => (
               <a
                 href={social.href}
                 class="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-brand-cream/70 transition duration-300 hover:border-brand-bloom/60 hover:text-brand-bloom"
@@ -122,60 +113,4 @@ const socials = [
   </div>
 </header>
 
-<script is:inline>
-  const toggleButton = document.querySelector('[data-mobile-toggle]');
-  const mobileMenu = document.querySelector('[data-mobile-menu]');
-  const closeTargets = mobileMenu?.querySelectorAll('[data-mobile-close]');
-
-  if (toggleButton && mobileMenu && closeTargets) {
-    const openIcon = toggleButton.querySelector('[data-icon="open"]');
-    const closeIcon = toggleButton.querySelector('[data-icon="close"]');
-
-    const openMenu = () => {
-      mobileMenu.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        mobileMenu.classList.remove('opacity-0', 'translate-y-6');
-        mobileMenu.classList.add('opacity-100', 'translate-y-0');
-      });
-      toggleButton.setAttribute('aria-expanded', 'true');
-      document.documentElement.classList.add('overflow-hidden');
-      openIcon?.classList.add('hidden');
-      closeIcon?.classList.remove('hidden');
-    };
-
-    const closeMenu = () => {
-      mobileMenu.classList.add('opacity-0', 'translate-y-6');
-      mobileMenu.classList.remove('opacity-100', 'translate-y-0');
-      toggleButton.setAttribute('aria-expanded', 'false');
-      document.documentElement.classList.remove('overflow-hidden');
-      openIcon?.classList.remove('hidden');
-      closeIcon?.classList.add('hidden');
-      mobileMenu.addEventListener(
-        'transitionend',
-        () => {
-          mobileMenu.classList.add('hidden');
-        },
-        { once: true }
-      );
-    };
-
-    toggleButton.addEventListener('click', () => {
-      const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    closeTargets.forEach((el) => {
-      el.addEventListener('click', closeMenu);
-    });
-
-    window.addEventListener('keyup', (event) => {
-      if (event.key === 'Escape') {
-        closeMenu();
-      }
-    });
-  }
-</script>
+<script type="module" src={new URL('../scripts/navigation-menu.ts', import.meta.url)} />

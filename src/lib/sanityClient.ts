@@ -2,6 +2,7 @@ import { createClient } from '@sanity/client';
 import groq from 'groq';
 import type { PortableTextBlock } from '@portabletext/types';
 import { galleryItems as fallbackGalleryItems } from '../data/gallery';
+import { HERO_FALLBACK_IMAGES } from '../data/site';
 
 type HeroImage = {
   src: string;
@@ -111,24 +112,7 @@ const journalDetailQuery = groq`*[_type == "journalPost" && slug.current == $slu
   }
 }`;
 
-const fallbackHeroImages: HeroImage[] = [
-  {
-    src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Paar bei goldenem Licht'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Freunde stoßen auf das Paar an'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Paar Hand in Hand'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Detailaufnahme eines Bouquets'
-  }
-];
+const fallbackHeroImages: HeroImage[] = HERO_FALLBACK_IMAGES;
 
 const fallbackJournalPosts: JournalPost[] = [
   {
