@@ -1,8 +1,12 @@
-const toggleButton = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
-const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
-const closeTargets = mobileMenu?.querySelectorAll<HTMLElement>('[data-mobile-close]') ?? [];
+const initNavigationMenu = () => {
+  const toggleButton = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+  const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const closeTargets = mobileMenu?.querySelectorAll<HTMLElement>('[data-mobile-close]') ?? [];
 
-if (toggleButton && mobileMenu) {
+  if (!toggleButton || !mobileMenu) {
+    return;
+  }
+
   const openIcon = toggleButton.querySelector<SVGElement>('[data-icon="open"]');
   const closeIcon = toggleButton.querySelector<SVGElement>('[data-icon="close"]');
 
@@ -48,4 +52,10 @@ if (toggleButton && mobileMenu) {
       closeMenu();
     }
   });
+};
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initNavigationMenu, { once: true });
+} else {
+  initNavigationMenu();
 }
