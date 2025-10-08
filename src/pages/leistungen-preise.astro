@@ -271,12 +271,10 @@ const steps = [
                   <p class="text-sm text-brand-cream/70 sm:text-base">{pkg.tagline}</p>
                 )}
 
-                <ul
-                  class={`mt-6 grid gap-4 text-sm text-brand-cream/80 sm:text-[0.95rem] ${featureGridClass}`}
-                >
+                <ul class="mt-6 space-y-3 text-sm text-brand-cream/80 sm:text-[0.95rem]">
                   {pkg.features.map((feature) => (
                     <li class="flex items-start gap-3">
-                      <span class={`mt-1 inline-flex h-2.5 w-2.5 flex-none rounded-full ${
+                      <span class={`mt-1 inline-flex h-2 w-2 flex-none rounded-full ${
                         accent?.bullet ?? 'bg-brand-cream'
                       }`}></span>
                       <span>{feature}</span>
