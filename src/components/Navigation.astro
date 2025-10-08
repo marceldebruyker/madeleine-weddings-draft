@@ -50,9 +50,12 @@ import { NAV_LINKS, SOCIAL_LINKS } from '../data/site';
   <div
     id="mobile-menu"
     data-mobile-menu
-    class="fixed inset-0 z-50 hidden translate-y-6 bg-brand-night opacity-0 transition duration-300 ease-out"
+    class="fixed inset-0 z-50 hidden translate-y-6 bg-brand-night/95 opacity-0 backdrop-blur transition duration-300 ease-out"
   >
-    <div class="flex h-full flex-col px-8 pb-8 pt-10 text-brand-cream">
+    <div
+      data-mobile-panel
+      class="flex h-full flex-col px-8 pb-8 pt-10 text-brand-cream opacity-0 translate-y-4 transition-all duration-500 ease-out"
+    >
       <div class="flex items-center justify-between">
         <a href="/" class="flex items-center gap-3 transition hover:opacity-90" data-mobile-close>
           <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-blush to-brand-bloom text-lg font-semibold text-brand-night shadow-md">
@@ -120,9 +123,10 @@ import { NAV_LINKS, SOCIAL_LINKS } from '../data/site';
       const mobileMenu = document.querySelector('[data-mobile-menu]');
       if (!toggleButton || !mobileMenu) return;
 
-      const closeTargets = mobileMenu.querySelectorAll('[data-mobile-close]');
-      const openIcon = toggleButton.querySelector('[data-icon="open"]');
-      const closeIcon = toggleButton.querySelector('[data-icon="close"]');
+    const closeTargets = mobileMenu.querySelectorAll('[data-mobile-close]');
+    const panel = mobileMenu.querySelector('[data-mobile-panel]');
+    const openIcon = toggleButton.querySelector('[data-icon="open"]');
+    const closeIcon = toggleButton.querySelector('[data-icon="close"]');
 
       const lockScroll = (shouldLock) => {
         document.documentElement.classList.toggle('overflow-hidden', shouldLock);
@@ -133,6 +137,8 @@ import { NAV_LINKS, SOCIAL_LINKS } from '../data/site';
         requestAnimationFrame(() => {
           mobileMenu.classList.remove('opacity-0', 'translate-y-6');
           mobileMenu.classList.add('opacity-100', 'translate-y-0');
+          panel?.classList.remove('opacity-0', 'translate-y-4');
+          panel?.classList.add('opacity-100', 'translate-y-0');
         });
         toggleButton.setAttribute('aria-expanded', 'true');
         lockScroll(true);
@@ -143,6 +149,8 @@ import { NAV_LINKS, SOCIAL_LINKS } from '../data/site';
       const closeMenu = () => {
         mobileMenu.classList.add('opacity-0', 'translate-y-6');
         mobileMenu.classList.remove('opacity-100', 'translate-y-0');
+        panel?.classList.add('opacity-0', 'translate-y-4');
+        panel?.classList.remove('opacity-100', 'translate-y-0');
         toggleButton.setAttribute('aria-expanded', 'false');
         lockScroll(false);
         openIcon?.classList.remove('hidden');
