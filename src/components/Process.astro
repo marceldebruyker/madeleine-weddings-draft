@@ -1,0 +1,66 @@
+---
+const steps = [
+  {
+    number: '01',
+    icon: '💬',
+    title: 'Kennenlernen',
+    description:
+      'Wir telefonieren oder treffen uns auf einen Kaffee. Ihr erzählt von euren Plänen, ich von meiner Arbeitsweise. Und wir schauen, ob die Chemie stimmt.'
+  },
+  {
+    number: '02',
+    icon: '✓',
+    title: 'Buchung & Planung',
+    description:
+      'Nach eurer Zusage sichern wir euren Termin. Ihr bekommt alle Infos, Tipps zur Zeitplanung und einen Fragebogen, damit ich euch und eure Wünsche besser kennenlerne.'
+  },
+  {
+    number: '03',
+    icon: '📸',
+    title: 'Euer großer Tag',
+    description:
+      'Ich bin da, fange die echten Momente ein und halte mich dezent im Hintergrund. Für eure Paarfotos leite ich euch entspannt an – damit ihr euch wohlfühlt und Bilder entstehen, die nach euch aussehen. Entspannt euch – ich hab alles im Blick.'
+  },
+  {
+    number: '04',
+    icon: '❤️',
+    title: 'Eure Bilder',
+    description:
+      'Eure Highlight-Bilder erhaltet ihr innerhalb von 48 Stunden, die komplette Galerie spätestens nach zwei Wochen. Zum Durchklicken, Teilen und immer-wieder-Ansehen.'
+  }
+];
+---
+<section id="prozess" class="mx-auto mt-32 max-w-6xl px-6">
+  <div class="grid gap-12 lg:grid-cols-[1fr,1.2fr] lg:items-start">
+    <div class="rounded-[2.5rem] bg-gradient-to-br from-brand-night via-brand-midnight to-brand-dusk text-brand-cream shadow-2xl shadow-black/50">
+      <div class="space-y-10 px-10 py-12">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.5em] text-brand-bloom/80">🗓️ So läuft's ab</p>
+          <h2 class="mt-4 font-display text-3xl leading-tight">Eure Reise mit mir</h2>
+        </div>
+        <p class="text-sm text-brand-cream/70">
+          Transparente Schritte, klare Absprachen und eine Begleitung, die euch Ruhe schenkt. So wisst ihr immer, was als Nächstes passiert.
+        </p>
+        <a href="#faq" class="btn-secondary bg-brand-night/40 text-brand-cream hover:text-brand-cream">
+          Antworten auf häufige Fragen
+        </a>
+      </div>
+    </div>
+    <div class="grid gap-6">
+      {steps.map((step) => (
+        <article class="relative overflow-hidden rounded-3xl border border-white/10 bg-brand-raisin/70 p-8 shadow-md shadow-black/40 backdrop-blur">
+          <div class="flex items-start gap-6">
+            <div class="flex flex-col items-center gap-2 text-brand-cream">
+              <span class="text-4xl">{step.icon}</span>
+              <span class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-cream/50">{step.number}</span>
+            </div>
+            <div>
+              <h3 class="font-display text-2xl text-brand-cream">{step.title}</h3>
+              <p class="mt-4 text-sm text-brand-cream/70">{step.description}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

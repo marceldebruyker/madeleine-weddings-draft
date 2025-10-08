@@ -1,0 +1,36 @@
+---
+const testimonials = [
+  {
+    quote: 'Madeleine hat uns eine Ruhe gegeben, die wir so gebraucht haben. In den Bildern spiegeln sich alle kleinen Momente wider – nichts wirkt gestellt, alles fühlt sich nach uns an.',
+    name: 'Johanna & Felix',
+    location: 'Urban Wedding in Stuttgart'
+  },
+  {
+    quote: 'Durch ihre klare Kommunikation wussten wir immer, was als Nächstes passiert. Das Ergebnis sind so viele Lieblingsbilder, die wir gar nicht alle rahmen können.',
+    name: 'Maria & Luca',
+    location: 'Sommerhochzeit am Bodensee'
+  },
+  {
+    quote: 'Wir wollten eine moderne, zeitlose Bildsprache – Madeleine hat das zu 100% umgesetzt. Besonders beeindruckt hat uns ihr Blick für Details und Emotionen.',
+    name: 'Sophie & Daniel',
+    location: 'Elopement in den Alpen'
+  }
+];
+---
+<section id="stimmen" class="mx-auto mt-32 max-w-6xl px-6">
+  <div class="max-w-xl">
+    <div class="section-title text-brand-bloom/80">Stimmen</div>
+    <h2 class="mt-4 font-display text-3xl leading-tight text-brand-cream sm:text-4xl">Echte Worte von Paaren, die ihre Hochzeit mit Madeleine erlebt haben.</h2>
+  </div>
+  <div class="mt-12 grid gap-6 lg:grid-cols-3">
+    {testimonials.map((testimonial) => (
+      <figure class="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-brand-raisin/70 p-8 shadow-md shadow-black/40 backdrop-blur">
+        <blockquote class="text-sm leading-relaxed text-brand-cream/75">“{testimonial.quote}”</blockquote>
+        <figcaption class="mt-6">
+          <p class="font-semibold text-brand-cream">{testimonial.name}</p>
+          <p class="text-xs uppercase tracking-[0.3em] text-brand-cream/40">{testimonial.location}</p>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

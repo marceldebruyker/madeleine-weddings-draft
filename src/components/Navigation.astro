@@ -1,0 +1,181 @@
+---
+const navLinks = [
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/ueber-mich', label: 'Über mich' },
+  { href: '/leistungen-preise', label: 'Leistungen & Preise' },
+  { href: '/journal', label: 'Journal' }
+];
+
+const socials = [
+  { href: 'https://www.instagram.com', label: 'Instagram' }
+];
+---
+<header class="fixed inset-x-0 top-0 z-40">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="mt-6 flex items-center justify-between rounded-full border border-white/10 bg-brand-midnight/80 px-6 py-4 shadow-lg shadow-black/50 backdrop-blur-2xl">
+      <a href="/" class="flex items-center gap-3 transition hover:opacity-90">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-blush to-brand-bloom text-lg font-semibold text-brand-night shadow-md">
+          M
+        </span>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.6em] text-brand-blush/90">Madeleine</p>
+          <p class="-mt-1 font-display text-lg leading-tight text-brand-cream">Hochzeitsfotografie</p>
+        </div>
+      </a>
+      <nav class="hidden items-center gap-8 text-sm font-medium text-brand-cream/70 md:flex">
+        {navLinks.map((link) => (
+          <a href={link.href} class="group relative transition duration-300 hover:text-brand-cream">
+            <span class="relative z-10">{link.label}</span>
+            <span class="absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 bg-brand-bloom/80 transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true"></span>
+          </a>
+        ))}
+        <div class="ml-2 flex items-center gap-3">
+          <a href="/login" class="btn-outline">
+            Login
+          </a>
+          <a href="/kontakt" class="btn-primary">Kontakt</a>
+        </div>
+      </nav>
+      <div class="md:hidden">
+        <button
+          type="button"
+          data-mobile-toggle
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-brand-midnight/80 text-brand-cream transition hover:border-white/30"
+        >
+          <span class="sr-only">Menü öffnen</span>
+          <svg data-icon="open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.75h16.5M3.75 12h16.5M3.75 18.25h16.5" />
+          </svg>
+          <svg data-icon="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="hidden h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    class="fixed inset-0 z-50 hidden translate-y-6 bg-brand-night opacity-0 transition duration-300 ease-out"
+  >
+    <div class="flex h-full flex-col px-8 pb-8 pt-10 text-brand-cream">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3 transition hover:opacity-90" data-mobile-close>
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-blush to-brand-bloom text-lg font-semibold text-brand-night shadow-md">
+            M
+          </span>
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.6em] text-brand-blush/90">Madeleine</p>
+            <p class="-mt-1 font-display text-lg leading-tight text-brand-cream">Hochzeitsfotografie</p>
+          </div>
+        </a>
+        <button
+          type="button"
+          data-mobile-close
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-brand-cream transition hover:border-white/40"
+        >
+          <span class="sr-only">Menü schließen</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <nav class="mt-16 flex-1 overflow-y-auto">
+        <ul class="space-y-6 pr-2 text-3xl font-display tracking-tight">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="block transition duration-300 hover:text-brand-bloom" data-mobile-close>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div class="sticky bottom-0 -mx-8 mt-8 border-t border-white/10 bg-brand-night/95 px-6 pb-5 pt-5 text-sm">
+        <a href="/login" class="btn-outline w-full justify-center" data-mobile-close>
+          Login
+        </a>
+        <a href="/kontakt" class="btn-primary mt-3 block text-center" data-mobile-close>
+          Kontakt
+        </a>
+        <div class="mt-6 rounded-2xl border border-white/10 bg-brand-night/90 px-5 py-4 text-center">
+          <p class="text-xs uppercase tracking-[0.4em] text-brand-cream/50">Folge Madeleine auf</p>
+          <div class="mt-4 flex items-center justify-center">
+            {socials.map((social) => (
+              <a
+                href={social.href}
+                class="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-brand-cream/70 transition duration-300 hover:border-brand-bloom/60 hover:text-brand-bloom"
+                target="_blank"
+                rel="noreferrer"
+                data-mobile-close
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const toggleButton = document.querySelector('[data-mobile-toggle]');
+  const mobileMenu = document.querySelector('[data-mobile-menu]');
+  const closeTargets = mobileMenu?.querySelectorAll('[data-mobile-close]');
+
+  if (toggleButton && mobileMenu && closeTargets) {
+    const openIcon = toggleButton.querySelector('[data-icon="open"]');
+    const closeIcon = toggleButton.querySelector('[data-icon="close"]');
+
+    const openMenu = () => {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        mobileMenu.classList.remove('opacity-0', 'translate-y-6');
+        mobileMenu.classList.add('opacity-100', 'translate-y-0');
+      });
+      toggleButton.setAttribute('aria-expanded', 'true');
+      document.documentElement.classList.add('overflow-hidden');
+      openIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+    };
+
+    const closeMenu = () => {
+      mobileMenu.classList.add('opacity-0', 'translate-y-6');
+      mobileMenu.classList.remove('opacity-100', 'translate-y-0');
+      toggleButton.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('overflow-hidden');
+      openIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      mobileMenu.addEventListener(
+        'transitionend',
+        () => {
+          mobileMenu.classList.add('hidden');
+        },
+        { once: true }
+      );
+    };
+
+    toggleButton.addEventListener('click', () => {
+      const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    closeTargets.forEach((el) => {
+      el.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('keyup', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  }
+</script>

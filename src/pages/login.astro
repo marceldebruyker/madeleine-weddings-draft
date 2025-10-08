@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const meta = {
+  title: 'Kunden-Login | Madeleine Hochzeitsfotografie',
+  description:
+    'Anmeldung für Paare und Gäste, um ihre persönliche Hochzeitsgalerie bei Madeleine Hochzeitsfotografie einzusehen.'
+};
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <section class="relative isolate overflow-hidden pt-32 pb-24">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-night via-brand-midnight/80 to-brand-night"></div>
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(214,168,196,0.18),_transparent_60%)]"></div>
+    </div>
+    <div class="mx-auto max-w-md rounded-[2.5rem] border border-white/10 bg-brand-midnight/70 px-8 py-12 text-brand-cream shadow-2xl shadow-black/40 backdrop-blur">
+      <p class="section-title mx-auto text-brand-bloom/80 text-center">Kundenbereich</p>
+      <h1 class="mt-6 text-center font-display text-3xl">Willkommen zurück</h1>
+      <p class="mt-4 text-center text-sm text-brand-cream/70">
+        Bitte melde dich mit deinem persönlichen Zugangscode an, um eure Galerie zu öffnen.
+      </p>
+      <form class="mt-10 space-y-6" method="post" action="#">
+        <label class="flex flex-col text-sm text-brand-cream/70">
+          E-Mail oder Benutzername
+          <input
+            type="text"
+            name="email"
+            required
+            class="mt-2 rounded-full border border-white/20 bg-brand-night/60 px-4 py-3 text-sm text-brand-cream placeholder:text-brand-cream/40 focus:border-brand-bloom/60 focus:outline-none"
+            placeholder="mail@example.de"
+          />
+        </label>
+        <label class="flex flex-col text-sm text-brand-cream/70">
+          Passwort
+          <input
+            type="password"
+            name="password"
+            required
+            class="mt-2 rounded-full border border-white/20 bg-brand-night/60 px-4 py-3 text-sm text-brand-cream placeholder:text-brand-cream/40 focus:border-brand-bloom/60 focus:outline-none"
+            placeholder="••••••••"
+          />
+        </label>
+        <button type="submit" class="btn-primary w-full justify-center">Einloggen</button>
+      </form>
+      <div class="mt-8 space-y-2 text-center text-xs text-brand-cream/50">
+        <a href="#" class="transition hover:text-brand-bloom">Passwort vergessen?</a>
+        <p>
+          Kein Zugang? Kontaktiere Madeleine, damit sie eure Galerie frei schaltet.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

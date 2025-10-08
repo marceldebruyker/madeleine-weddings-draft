@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply scroll-smooth antialiased bg-brand-night text-brand-cream;
+  }
+
+  body {
+    @apply font-body text-base bg-brand-night text-brand-cream;
+    background-image: radial-gradient(circle at top left, rgba(47, 51, 88, 0.4), transparent 45%),
+      radial-gradient(circle at bottom right, rgba(214, 168, 196, 0.2), transparent 55%),
+      theme('backgroundImage.noise-pattern');
+    background-size: cover;
+  }
+
+  ::selection {
+    @apply bg-brand-blush/60 text-brand-night;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-brand-blush to-brand-bloom px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-night transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-glow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bloom/80 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/15 bg-brand-midnight/60 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-cream transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blush/60 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-brand-bloom/60 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-bloom transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-brand-bloom/10 hover:text-brand-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-bloom/50 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-night;
+  }
+}
+
+@layer utilities {
+  .frosted {
+    @apply backdrop-blur-[18px] bg-brand-midnight/70 border border-white/10 shadow-2xl shadow-black/40;
+  }
+
+  .section-title {
+    @apply text-xs font-semibold uppercase tracking-[0.5em] text-brand-blush/80;
+  }
+}

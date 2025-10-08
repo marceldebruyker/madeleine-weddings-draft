@@ -1,0 +1,35 @@
+---
+import { galleryItems as fallbackGalleryItems } from '../data/gallery';
+
+const { items = [] } = Astro.props;
+
+const gallery = Array.isArray(items) && items.length > 0 ? items : fallbackGalleryItems;
+const previewItems = gallery.slice(0, 6).map((item, index) => ({
+  src: item?.src ?? fallbackGalleryItems[index % fallbackGalleryItems.length].src,
+  alt: item?.alt ?? fallbackGalleryItems[index % fallbackGalleryItems.length].alt
+}));
+---
+<section id="portfolio" class="mx-auto mt-32 max-w-6xl px-6">
+  <div class="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
+    <div class="max-w-xl">
+      <div class="section-title text-brand-bloom/80">Portfolio</div>
+      <h2 class="mt-4 font-display text-3xl leading-tight text-brand-cream sm:text-4xl">Editoriale Linien und authentische Emotionen – ein Blick in Madeleines Arbeiten.</h2>
+    </div>
+    <p class="max-w-sm text-sm text-brand-cream/70">
+      Reportagen mit Fokus auf Licht, Design und natürlichen Verbindungen. Jede Galerie erzählt eure Reise in einer visuell starken, zeitlosen Sprache.
+    </p>
+  </div>
+  <div class="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {previewItems.map(({ src, alt }, index) => (
+      <figure class={`group relative isolate overflow-hidden rounded-[2rem] border border-white/10 bg-brand-raisin/70 shadow-lg shadow-black/40 transition duration-500 ease-out hover:-translate-y-1 hover:shadow-2xl ${index % 3 === 0 ? 'sm:row-span-2' : ''}`}>
+        <img src={src} alt={alt} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+        <figcaption class="absolute inset-x-4 bottom-4 rounded-full bg-brand-midnight/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-brand-cream/80 backdrop-blur">
+          {alt}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="mt-12 text-center">
+    <a href="/portfolio" class="btn-secondary">Komplette Galerie ansehen</a>
+  </div>
+</section>

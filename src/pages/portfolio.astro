@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getGalleryImages } from '../lib/sanityClient';
+import { galleryItems as fallbackGalleryItems } from '../data/gallery';
+
+const meta = {
+  title: 'Portfolio | Madeleine Hochzeitsfotografie Stuttgart',
+  description:
+    'Kuratiertes Portfolio mit Ganztagsreportagen, Standesamt-Begleitungen und Editorial Sessions in Stuttgart und europaweit.'
+};
+
+const gallery = await getGalleryImages();
+const fallback = fallbackGalleryItems;
+const rawItems = gallery.length ? gallery : fallback;
+const galleryItems = rawItems.map((item, index) => ({
+  src: item?.src ?? fallback[index % fallback.length].src,
+  alt: item?.alt ?? fallback[index % fallback.length].alt,
+  location: item?.location ?? fallback[index % fallback.length].location
+}));
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <section class="relative isolate overflow-hidden pt-36 pb-24">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-brand-night via-brand-midnight/85 to-brand-night"></div>
+      <div class="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-bloom/30 blur-3xl"></div>
+      <div class="absolute right-[10%] bottom-0 h-56 w-56 rounded-full bg-brand-blush/25 blur-3xl"></div>
+    </div>
+    <div class="mx-auto max-w-4xl px-6 text-center text-brand-cream">
+      <span class="section-title inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-brand-bloom/75">
+        Portfolio
+      </span>
+      <h1 class="mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        Bilder, die euren Tag fühlbar machen.
+      </h1>
+      <p class="mt-6 text-base text-brand-cream/70 sm:text-lg">
+        Eine Auswahl aus Hochzeitsreportagen, Standesamt-Begleitungen und Editorial Sessions – emotional, designorientiert und in Madeleines Bildsprache.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm">
+        <a href="/leistungen-preise" class="btn-primary">Pakete ansehen</a>
+        <a href="/kontakt#anfrage" class="btn-outline">Termin anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie" class="bg-brand-night/95 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="max-w-2xl text-brand-cream">
+        <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Galerie</p>
+        <h2 class="mt-4 font-display text-3xl sm:text-4xl">Highlights aus aktuellen Reportagen</h2>
+        <p class="mt-5 text-brand-cream/70">
+          Klickt euch durch Momente voller Licht, Emotion und Details. Für vollständige Slideshows oder komplette Tagesreportagen meldet euch gern direkt bei Madeleine.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {galleryItems.map(({ src, alt, location }) => (
+          <figure class="group relative overflow-hidden rounded-[2.25rem] border border-white/10 bg-brand-night/80 shadow-[0_24px_70px_-50px_rgba(15,16,27,0.85)]">
+            <img
+              src={src}
+              alt={alt}
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <figcaption class="pointer-events-none absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl bg-brand-night/80 px-4 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-brand-cream/70 opacity-0 transition group-hover:opacity-100">
+              <span>{alt}</span>
+              {location && <span class="text-[0.55rem] tracking-normal text-brand-cream/40 normal-case">{location}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>

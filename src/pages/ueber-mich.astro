@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const meta = {
+  title: 'Über Madeleine | Hochzeitsfotografin in Stuttgart',
+  description:
+    'Lerne Madeleine kennen: Hochzeitsreportagen mit Ruhe, Struktur und einem Auge für Design. Erfahre mehr über Haltung, Arbeitsweise und Inspiration.'
+};
+
+const stats = [
+  { label: '120+ Paare', description: 'seit 2016 mit Reportagen begleitet' },
+  { label: '7 Jahre Erfahrung', description: 'zwischen Stuttgart, Alpen & Küste' },
+  { label: '48h Preview', description: 'Highlights direkt nach eurer Hochzeit' },
+  { label: '15 Projekte', description: 'maximal pro Jahr – für Fokus & Nähe' }
+];
+
+const values = [
+  {
+    title: 'Authentische Nähe',
+    description: 'Ich mische mich unter eure Gäste, beobachte ruhig und halte Emotionen fest, ohne die Szene zu verändern.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c6.627-4.5 6.627-11 0-15-6.627 4-6.627 10.5 0 15z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75a.75.75 0 100-1.5.75.75 0 000 1.5z" /></svg>`
+  },
+  {
+    title: 'Design & Licht',
+    description: 'Editorial inspiriert: Ich suche Linien, Farben und Lichtstimmungen, die eure Geschichte zeitlos wirken lassen.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L21 9l-3.75 2.25M6.75 6.75L3 9l3.75 2.25m7.5 0L12 13.5 9.75 11.25m-1.5 4.5L12 18l3.75-2.25" /></svg>`
+  },
+  {
+    title: 'Struktur & Sicherheit',
+    description: 'Gemeinsame Zeitpläne, doppelte Backups und transparente Kommunikation geben euch Vertrauen vor, während und nach dem Tag.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6l9 4.5-9 4.5L3 10.5 12 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 21V15" /></svg>`
+  }
+];
+
+const approach = [
+  {
+    title: 'Wir lernen uns kennen',
+    description: 'Video-Call oder Coffee-Date: Wir sprechen über euren Tag, Prioritäten und wie ihr euch fühlen möchtet.'
+  },
+  {
+    title: 'Wir planen mit Puffer',
+    description: 'Ich erstelle einen Ablaufvorschlag mit Zeitpolstern, Locationscouting und Lichtfenstern für Portraits.'
+  },
+  {
+    title: 'Ich begleite euch',
+    description: 'Am Hochzeitstag bin ich präsent, aber unaufdringlich. Ihr bekommt eine Preview in 48 Stunden und die komplette Galerie nach 6–8 Wochen.'
+  }
+];
+
+const portrait = {
+  src: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1300&q=80',
+  alt: 'Madeleine, Hochzeitsfotografin, mit Kamera in städtischer Umgebung'
+};
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <section class="relative isolate overflow-hidden pt-36 pb-24">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-brand-night via-brand-midnight/85 to-brand-night"></div>
+      <div class="absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-bloom/30 blur-3xl"></div>
+      <div class="absolute right-[12%] bottom-0 h-52 w-52 rounded-full bg-brand-blush/25 blur-3xl"></div>
+    </div>
+    <div class="mx-auto max-w-4xl px-6 text-center text-brand-cream">
+      <span class="section-title inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-brand-bloom/75">
+        Über Madeleine
+      </span>
+      <h1 class="mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        Ruhe, Struktur und Bilder, die Gefühle tragen.
+      </h1>
+      <p class="mt-6 text-base text-brand-cream/70 sm:text-lg">
+        Ich dokumentiere Hochzeiten für Paare, die eine Verbindung aus Emotion und Design lieben. Mit klarer Planung, feinem Gespür für Licht und der Gewissheit, dass jedes Detail sicher festgehalten wird.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm">
+        <a href="/leistungen-preise" class="btn-primary">Pakete entdecken</a>
+        <a href="/portfolio" class="btn-outline">Reportagen ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-night/95 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div class="max-w-xl text-brand-cream">
+          <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Madeleines Weg</p>
+          <h2 class="mt-4 font-display text-3xl sm:text-4xl">Von der Gestaltung zur Reportage</h2>
+          <p class="mt-6 text-brand-cream/70">
+            Meine ersten Jahre verbrachte ich in der Marken- und Editorialfotografie. Das Auge für Formen, Farben und Rhythmus hat sich dort geschärft – ebenso wie der Wunsch,
+            Menschen in echten Momenten zu begleiten.
+          </p>
+          <p class="mt-4 text-brand-cream/65">
+            2016 habe ich meine erste Hochzeit dokumentiert. Seitdem begleite ich ausgewählte Paare in Stuttgart, Deutschland und europaweit. Jede Reportage entsteht im Dialog mit euch: Wir planen gemeinsam,
+            schaffen Raum für Intuition und halten gleichzeitig die Timeline entspannt.
+          </p>
+          <div class="mt-6 rounded-3xl border border-white/10 bg-brand-midnight/70 p-6 text-sm text-brand-cream/75 shadow-[0_24px_70px_-50px_rgba(15,16,27,0.75)]">
+            <p>
+              Ich nehme pro Jahr maximal fünfzehn Hochzeiten an. So habe ich Zeit für ausführliche Vorbereitung, individuelle Moodboards und schnelle Kommunikation – vom ersten Kennenlernen bis zur Auslieferung eurer Galerie.
+            </p>
+          </div>
+        </div>
+        <figure class="relative overflow-hidden rounded-[3rem] border border-white/10 bg-brand-midnight/60 shadow-[0_30px_90px_-60px_rgba(15,16,27,0.75)]">
+          <img
+            src={portrait.src}
+            alt={portrait.alt}
+            class="h-full w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-105"
+            loading="lazy"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-brand-night/65 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 rounded-full border border-brand-bloom/30 bg-brand-bloom/10 px-4 py-1 text-[0.65rem] uppercase tracking-[0.35em] text-brand-bloom/80">
+            Behind the lens
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-midnight py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="md:flex md:items-end md:justify-between">
+        <div class="max-w-xl text-brand-cream">
+          <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Ein paar Zahlen</p>
+          <h2 class="mt-4 font-display text-3xl sm:text-4xl">Was euch Sicherheit gibt</h2>
+          <p class="mt-5 text-brand-cream/70">
+            Erfahrung, verlässliche Abläufe und Liebe zum Detail – damit ihr euren Tag sorglos genießen könnt.
+          </p>
+        </div>
+        <a href="/kontakt#anfrage" class="btn-secondary mt-8 md:mt-0">Verfügbarkeit prüfen</a>
+      </div>
+
+      <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-brand-night/80 px-7 py-8 text-brand-cream shadow-[0_24px_70px_-50px_rgba(15,16,27,0.75)] transition duration-300 hover:-translate-y-1">
+            <span class="text-[0.65rem] uppercase tracking-[0.35em] text-brand-cream/50">Erfahrung</span>
+            <p class="mt-4 font-display text-2xl text-brand-cream">{stat.label}</p>
+            <p class="mt-3 text-sm text-brand-cream/70">{stat.description}</p>
+            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-brand-bloom/60 via-transparent to-brand-blush/50 opacity-0 transition group-hover:opacity-100"></span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-night/95 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="max-w-2xl text-brand-cream">
+        <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Haltung</p>
+        <h2 class="mt-4 font-display text-3xl sm:text-4xl">Werte, die jede Reportage tragen</h2>
+        <p class="mt-5 text-brand-cream/70">
+          Jedes Paar ist anders – aber drei Punkte ziehen sich durch meine Arbeit: echte Nähe, ein Auge für Design und ein strukturierter Ablauf.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-3">
+        {values.map((value) => (
+          <article class="group flex h-full flex-col gap-5 rounded-[2.25rem] border border-white/10 bg-brand-midnight/80 px-8 py-10 text-brand-cream shadow-[0_24px_70px_-50px_rgba(15,16,27,0.8)] transition duration-300 hover:-translate-y-1">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-brand-bloom/30 bg-brand-bloom/10 text-brand-bloom"
+              set:html={value.icon}
+            ></span>
+            <h3 class="font-display text-xl text-brand-cream">{value.title}</h3>
+            <p class="text-sm leading-relaxed text-brand-cream/75">{value.description}</p>
+            <span class="pointer-events-none mt-auto inline-flex h-1 w-full translate-y-4 rounded-full bg-gradient-to-r from-brand-bloom/40 via-transparent to-brand-blush/40 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100"></span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-midnight py-24">
+    <div class="mx-auto max-w-6xl px-6 text-brand-cream">
+      <div class="max-w-3xl">
+        <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Arbeitsweise</p>
+        <h2 class="mt-4 font-display text-3xl sm:text-4xl">So fühlt sich eure Reportage mit mir an</h2>
+        <p class="mt-5 text-brand-cream/70">
+          Struktur und Spontaneität schließen sich nicht aus. Wir planen bewusst – und lassen trotzdem Raum für echte Emotionen.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-10 sm:grid-cols-3">
+        {approach.map((step, index) => (
+          <div class="rounded-[2.25rem] border border-white/10 bg-brand-night/80 p-8 shadow-[0_24px_70px_-50px_rgba(15,16,27,0.8)]">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-brand-bloom/40 text-sm font-semibold text-brand-bloom">
+              {index + 1}
+            </div>
+            <h3 class="mt-5 font-display text-xl text-brand-cream">{step.title}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-brand-cream/70">{step.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 inline-flex flex-wrap gap-4 text-sm">
+        <a href="/kontakt#anfrage" class="btn-primary">Kennenlern-Call anfragen</a>
+        <a href="/journal" class="btn-outline">Aktuelle Stories lesen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-night/95 pb-24">
+    <div class="mx-auto max-w-5xl px-6 text-brand-cream">
+      <div class="rounded-[2.5rem] border border-white/10 bg-brand-midnight/80 p-12 shadow-[0_24px_70px_-50px_rgba(15,16,27,0.75)] md:p-14">
+        <div class="md:flex md:items-center md:gap-10">
+          <div class="flex-1">
+            <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Was Paare sagen</p>
+            <h2 class="mt-4 font-display text-3xl sm:text-4xl">„Wir konnten einfach wir selbst sein.“</h2>
+            <p class="mt-5 text-sm text-brand-cream/70">
+              „Madeleine hat uns das Gefühl gegeben, dass alles fließt. Sie wusste immer, wann sie uns Raum geben musste – und wann ein kleiner Hinweis hilft. Die Bilder sind voller Emotion und gleichzeitig so elegant,
+              dass wir sie uns täglich ansehen.“
+            </p>
+            <p class="mt-4 text-xs uppercase tracking-[0.35em] text-brand-cream/45">Sophie &amp; Leon · Sommerhochzeit 2023</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>

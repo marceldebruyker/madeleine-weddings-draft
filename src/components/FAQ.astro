@@ -1,0 +1,37 @@
+---
+const faqs = [
+  {
+    question: 'Wie lange im Voraus sollten wir dich buchen?',
+    answer: 'Für Termine zwischen Mai und September empfehle ich eine Anfrage 9-12 Monate im Voraus. Für Elopements und Wochentagshochzeiten finden wir oft auch kurzfristigere Slots.'
+  },
+  {
+    question: 'Wie erhalten wir unsere Bilder?',
+    answer: 'Ihr erhaltet innerhalb von 48 Stunden eine emotionale Vorschau und nach 6 Wochen eure komplette Galerie als hochwertige Online-Galerie zum Teilen und Herunterladen.'
+  },
+  {
+    question: 'Arbeitest du nur in Stuttgart?',
+    answer: 'Mein Fokus liegt auf Stuttgart und Baden-Württemberg. Für Destination-Hochzeiten und Elopements reise ich europaweit – Anreise innerhalb der EU ist in den Collections enthalten.'
+  },
+  {
+    question: 'Bietest du auch Fotoalben an?',
+    answer: 'Ja, ich gestalte Fine Art Alben mit handgebundenen Einbänden. Wir kuratieren gemeinsam eure Lieblingsmomente, damit daraus ein haptisches Erbstück entsteht.'
+  }
+];
+---
+<section id="faq" class="mx-auto mt-32 max-w-6xl px-6">
+  <div class="max-w-xl">
+    <div class="section-title text-brand-bloom/80">FAQ</div>
+    <h2 class="mt-4 font-display text-3xl leading-tight text-brand-cream sm:text-4xl">Alle wichtigen Fragen rund um eure Hochzeitsreportage.</h2>
+  </div>
+  <div class="mt-12 space-y-4">
+    {faqs.map((item) => (
+      <details class="group rounded-3xl border border-white/10 bg-brand-raisin/70 px-6 py-6 shadow-sm backdrop-blur transition hover:border-brand-bloom/30">
+        <summary class="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-brand-cream">
+          <span>{item.question}</span>
+          <span class="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-brand-cream transition group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-4 text-sm leading-relaxed text-brand-cream/70">{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

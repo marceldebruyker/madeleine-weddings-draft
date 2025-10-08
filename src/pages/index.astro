@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Story from '../components/Story.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Process from '../components/Process.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getGalleryImages, getHeroContent } from '../lib/sanityClient';
+
+const meta = {
+  title: 'Madeleine Hochzeitsfotografie | Moderne Hochzeitsreportagen in Stuttgart',
+  description:
+    'Moderne Hochzeitsfotografie in Stuttgart von Madeleine: zeitlose Reportagen, Editorial-Ästhetik und emotionale Geschichten für anspruchsvolle Paare.'
+};
+
+const [heroContent, homepageGallery] = await Promise.all([
+  getHeroContent(),
+  getGalleryImages({ homepageOnly: true, limit: 6 })
+]);
+
+const heroImages = heroContent?.heroImages ?? [];
+const heroHeadline = heroContent?.headline;
+const heroSubline = heroContent?.subline;
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <Hero images={heroImages} headline={heroHeadline} subline={heroSubline} />
+  <Services />
+  <Story />
+  <Portfolio items={homepageGallery} />
+  <Process />
+  <Testimonials />
+  <FAQ />
+  <ContactCTA />
+</BaseLayout>

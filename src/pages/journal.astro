@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getJournalPosts } from '../lib/sanityClient';
+
+const meta = {
+  title: 'Journal | Madeleine Hochzeitsfotografie Stuttgart',
+  description:
+    'Inspiration, echte Hochzeitsreportagen und Tipps rund um moderne Hochzeitsfotografie in Stuttgart. Entdeckt Blogartikel, Guides und Behind-the-Scenes-Stories.'
+};
+
+const posts = await getJournalPosts();
+
+const formatDate = (value?: string) => {
+  if (!value) return '';
+  try {
+    return new Date(value).toLocaleDateString('de-DE', {
+      month: 'long',
+      year: 'numeric'
+    });
+  } catch {
+    return value;
+  }
+};
+
+const fallbackCover =
+  'https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&fit=crop&w=1600&q=80';
+
+const [featuredPost, ...otherPosts] = posts;
+
+const featuredArticle = featuredPost
+  ? {
+      title: featuredPost.title,
+      excerpt: featuredPost.excerpt,
+      image: featuredPost.coverUrl || fallbackCover,
+      category: featuredPost.categories?.[0] || 'Journal',
+      readingTime: featuredPost.readingTime || '',
+      date: formatDate(featuredPost.publishedAt),
+      href: featuredPost.slug ? `/journal/${featuredPost.slug}` : '#'
+    }
+  : {
+      title: 'Neue Story folgt in Kürze',
+      excerpt: 'Sobald der erste Beitrag veröffentlicht ist, erscheint er hier automatisch.',
+      image: fallbackCover,
+      category: 'Journal',
+      readingTime: '',
+      date: '',
+      href: '#'
+    };
+
+const journalEntries = otherPosts.map((post) => ({
+  title: post.title,
+  category: post.categories?.[0] || 'Journal',
+  date: formatDate(post.publishedAt),
+  readingTime: post.readingTime || '',
+  excerpt: post.excerpt,
+  image: post.coverUrl || fallbackCover,
+  href: post.slug ? `/journal/${post.slug}` : '#'
+}));
+
+const popularEntries = posts.slice(0, 3).map((post) => ({
+  title: post.title,
+  href: post.slug ? `/journal/${post.slug}` : '#'
+}));
+
+const categories = [
+  {
+    name: 'Hochzeitsreportagen',
+    description:
+      'Echte Hochzeiten in Stuttgart, auf dem Land und quer durch Europa – mit Ablauf, Licht-Setups und Bildideen.',
+    color: 'border-brand-bloom/40 bg-brand-bloom/10 text-brand-bloom',
+    href: '#'
+  },
+  {
+    name: 'Tipps & Guides',
+    description: 'Planungshilfen, Checklisten und Empfehlungen, damit ihr euren Tag entspannt erlebt.',
+    color: 'border-brand-blush/40 bg-brand-blush/10 text-brand-blush',
+    href: '#'
+  },
+  {
+    name: 'Behind the Scenes',
+    description: 'Einblicke in Technik, Teamwork und meine Arbeitsweise hinter der Kamera.',
+    color: 'border-brand-cream/40 bg-brand-cream/10 text-brand-cream',
+    href: '#'
+  },
+  {
+    name: 'Inspiration',
+    description: 'Moodboards, Farbkonzepte und Editorial-Ideen für moderne Paare.',
+    color: 'border-brand-mist/30 bg-brand-mist/10 text-brand-mist',
+    href: '#'
+  }
+];
+
+const resources = [
+  {
+    title: 'Download: Checkliste für das Getting Ready',
+    description: 'Alles, was ihr für entspannte Vorbereitungen braucht – Kleidung, Details und Timing.',
+    href: '#',
+    format: 'PDF',
+    accent: 'from-brand-bloom/20 via-brand-bloom/10 to-brand-night/50'
+  },
+  {
+    title: 'Playlist: Soundtrack für den Sektempfang',
+    description: 'Kuratiert für eine elegante Stimmung zwischen Gratulation und Dinner.',
+    href: '#',
+    format: 'Spotify',
+    accent: 'from-brand-blush/20 via-brand-blush/10 to-brand-night/50'
+  },
+  {
+    title: 'Planungstool: Timeline-Template in Notion',
+    description: 'Kollaborative Planung mit Dienstleistern, inklusive Pufferzeiten und Kontaktliste.',
+    href: '#',
+    format: 'Template',
+    accent: 'from-brand-cream/20 via-brand-cream/10 to-brand-night/50'
+  }
+];
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <section class="relative isolate overflow-hidden pt-36 pb-20">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-brand-night via-brand-midnight/85 to-brand-night"></div>
+      <div class="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-brand-bloom/25 blur-3xl"></div>
+      <div class="absolute right-[10%] bottom-0 h-52 w-52 rounded-full bg-brand-blush/20 blur-3xl"></div>
+    </div>
+    <div class="mx-auto max-w-4xl px-6 text-center text-brand-cream">
+      <span class="section-title inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-brand-bloom/75">
+        Journal
+      </span>
+      <h1 class="mt-8 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        Geschichten, Guides & dezente Behind-the-Scenes.
+      </h1>
+      <p class="mt-6 text-base text-brand-cream/70 sm:text-lg">
+        Begleitet Madeleine zu echten Hochzeiten, entdeckt Planungstipps für euren Tag und lasst euch von Editorial-Ideen inspirieren. Jede neue Story landet zuerst hier.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm">
+        <a href="/kontakt#anfrage" class="btn-primary">Termin anfragen</a>
+        <a href="#neu-im-journal" class="btn-outline">Neueste Artikel lesen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-night/95 pb-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+        <article class="group relative overflow-hidden rounded-[2.75rem] border border-white/10 bg-brand-midnight/80 text-brand-cream shadow-[0_30px_90px_-55px_rgba(15,16,27,0.85)]">
+          <figure class="relative h-80 w-full overflow-hidden sm:h-[26rem]">
+            <img
+              src={featuredArticle.image}
+              alt={featuredArticle.title}
+              class="h-full w-full object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-night/80 via-brand-night/20"></div>
+            <div class="absolute left-6 top-6 inline-flex items-center rounded-full border border-brand-bloom/30 bg-brand-bloom/10 px-4 py-1 text-xs uppercase tracking-[0.35em] text-brand-bloom">
+              {featuredArticle.category}
+            </div>
+          </figure>
+          <div class="flex flex-col gap-6 px-8 py-10 sm:px-12 sm:py-12">
+            <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.35em] text-brand-cream/50">
+              {featuredArticle.date && <span>{featuredArticle.date}</span>}
+              {featuredArticle.date && featuredArticle.readingTime && (
+                <span class="inline-flex h-1 w-1 rounded-full bg-brand-cream/40"></span>
+              )}
+              {featuredArticle.readingTime && <span>{featuredArticle.readingTime}</span>}
+            </div>
+            <h2 class="font-display text-3xl leading-tight sm:text-[2.4rem]">{featuredArticle.title}</h2>
+            <p class="text-sm text-brand-cream/70 sm:text-base">{featuredArticle.excerpt}</p>
+            <div class="flex items-center gap-4">
+              <a href={featuredArticle.href} class="btn-primary">Zum Artikel</a>
+              <a href="#kategorien" class="btn-outline">Mehr Themen entdecken</a>
+            </div>
+          </div>
+        </article>
+
+        <aside class="flex flex-col gap-10">
+          <div class="rounded-3xl border border-white/10 bg-brand-midnight/80 p-8 text-brand-cream shadow-[0_26px_80px_-55px_rgba(15,16,27,0.8)]">
+            <p class="text-xs uppercase tracking-[0.4em] text-brand-blush/70">Newsletter</p>
+            <h3 class="mt-4 font-display text-2xl leading-tight">Journal-Updates & Tipps zuerst erhalten</h3>
+            <p class="mt-4 text-sm text-brand-cream/70">
+              Maximal zweimal im Monat: echte Reportagen, Planungshilfen und exklusive Angebote für Paare.
+            </p>
+            <form class="mt-6 flex flex-col gap-3">
+              <input
+                type="email"
+                name="email"
+                placeholder="E-Mail-Adresse"
+                class="w-full rounded-full border border-white/15 bg-brand-night/80 px-5 py-3 text-sm text-brand-cream placeholder:text-brand-cream/40 focus:border-brand-bloom/60 focus:outline-none focus:ring focus:ring-brand-bloom/40"
+              />
+              <button type="submit" class="btn-primary justify-center">Anmelden</button>
+              <p class="text-[0.65rem] uppercase tracking-[0.3em] text-brand-cream/40">
+                Kein Spam. Abmeldung jederzeit möglich.
+              </p>
+            </form>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-brand-midnight/80 p-8 text-brand-cream shadow-[0_26px_80px_-55px_rgba(15,16,27,0.8)]">
+            <p class="text-xs uppercase tracking-[0.4em] text-brand-bloom/70">Beliebt</p>
+            <ul class="mt-4 space-y-4 text-sm text-brand-cream/75">
+              {popularEntries.map((entry) => (
+                <li>
+                  <a href={entry.href} class="group inline-flex items-start gap-3 transition hover:text-brand-cream">
+                    <span class="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-brand-bloom"></span>
+                    {entry.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="neu-im-journal" class="bg-brand-midnight py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="md:flex md:items-end md:justify-between">
+        <div class="max-w-xl text-brand-cream">
+          <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Neu im Journal</p>
+          <h2 class="mt-4 font-display text-3xl sm:text-4xl">Frisch publizierte Stories & Guides</h2>
+          <p class="mt-5 text-brand-cream/70">
+            Entdeckt die neuesten Artikel – von echten Hochzeiten bis zu praktischen Checklisten für eure Planung.
+          </p>
+        </div>
+        <a href="#kategorien" class="btn-secondary mt-8 md:mt-0">Alle Kategorien ansehen</a>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {journalEntries.map((entry) => (
+          <article class="group flex h-full flex-col overflow-hidden rounded-[2.25rem] border border-white/10 bg-brand-night/80 text-brand-cream shadow-[0_24px_70px_-50px_rgba(15,16,27,0.8)]">
+            <figure class="relative h-56 w-full overflow-hidden">
+              <img
+                src={entry.image}
+                alt={entry.title}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-night/80 via-brand-night/10"></div>
+              <div class="absolute left-5 top-5 inline-flex items-center rounded-full border border-brand-bloom/30 bg-brand-bloom/10 px-4 py-1 text-[0.65rem] uppercase tracking-[0.35em] text-brand-bloom">
+                {entry.category}
+              </div>
+            </figure>
+            <div class="flex flex-1 flex-col gap-5 px-7 py-8">
+              <div class="flex flex-wrap items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-brand-cream/45">
+                {entry.date && <span>{entry.date}</span>}
+                {entry.date && entry.readingTime && (
+                  <span class="inline-flex h-1 w-1 rounded-full bg-brand-cream/30"></span>
+                )}
+                {entry.readingTime && <span>{entry.readingTime}</span>}
+              </div>
+              <h3 class="font-display text-xl leading-tight text-brand-cream">{entry.title}</h3>
+              <p class="text-sm text-brand-cream/70">{entry.excerpt}</p>
+              <div class="mt-auto flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-brand-bloom transition group-hover:text-brand-cream">
+                <a href={entry.href} class="inline-flex items-center gap-2">
+                  Weiterlesen
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="kategorien" class="bg-brand-night/95 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div class="max-w-lg text-brand-cream">
+          <p class="text-xs uppercase tracking-[0.45em] text-brand-bloom/70">Themenwelten</p>
+          <h2 class="mt-4 font-display text-3xl sm:text-4xl">Findet Artikel nach Kategorie</h2>
+          <p class="mt-5 text-brand-cream/70">
+            Egal ob ihr euch von echten Hochzeiten inspirieren lassen möchtet oder praktische Tools sucht – stöbert in den Kategorien, die euch gerade weiterbringen.
+          </p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {categories.map((category) => (
+            <a
+              href={category.href}
+              class={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-brand-midnight/80 p-8 text-brand-cream shadow-[0_24px_70px_-50px_rgba(15,16,27,0.8)] transition duration-300 hover:-translate-y-1`}
+            >
+              <span class={`inline-flex items-center rounded-full border px-4 py-1 text-[0.65rem] uppercase tracking-[0.35em] ${category.color}`}>
+                {category.name}
+              </span>
+              <p class="mt-5 text-sm text-brand-cream/70">{category.description}</p>
+              <span class="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-brand-bloom/80 transition group-hover:text-brand-cream">
+                Zu den Artikeln
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </span>
+              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-brand-bloom/50 via-transparent to-brand-blush/50 opacity-0 transition group-hover:opacity-100"></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-midnight py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="rounded-[2.75rem] border border-white/10 bg-brand-night/85 p-12 text-brand-cream shadow-[0_30px_90px_-55px_rgba(15,16,27,0.85)] md:p-16">
+        <div class="md:flex md:items-start md:justify-between">
+          <div class="max-w-2xl">
+            <p class="text-xs uppercase tracking-[0.4em] text-brand-bloom/70">Guides & Ressourcen</p>
+            <h2 class="mt-4 font-display text-3xl sm:text-4xl">Downloads & Tools für eure Planung</h2>
+            <p class="mt-5 text-brand-cream/70">
+              Konkrete Hilfen, die Madeleine für ihre Paare entwickelt hat – vom strukturierten Getting Ready bis zur Playlist für euren Empfang.
+            </p>
+          </div>
+          <a href="/kontakt#anfrage" class="btn-secondary mt-8 md:mt-0">Persönliche Beratung</a>
+        </div>
+        <div class="mt-12 grid gap-8 md:grid-cols-3">
+          {resources.map((resource) => (
+            <a
+              href={resource.href}
+              class={`group flex h-full flex-col rounded-[2rem] border border-white/10 bg-gradient-to-br ${resource.accent} px-7 py-8 text-brand-cream transition duration-300 hover:-translate-y-1`}
+            >
+              <span class="text-[0.65rem] uppercase tracking-[0.35em] text-brand-cream/60">{resource.format}</span>
+              <h3 class="mt-4 font-display text-xl leading-tight text-brand-cream">{resource.title}</h3>
+              <p class="mt-4 text-sm text-brand-cream/70">{resource.description}</p>
+              <span class="mt-auto inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-brand-cream/70 transition group-hover:text-brand-cream">
+                Herunterladen
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5L12 15l-4.5-4.5m4.5 4.5V3m0 12l-4.5 4.5m9-4.5L12 15" />
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>

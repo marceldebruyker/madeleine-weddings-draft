@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { getJournalPostBySlug } from '../../lib/sanityClient';
+import { toHTML } from '@portabletext/to-html';
+
+const { slug } = Astro.params;
+const post = slug ? await getJournalPostBySlug(slug) : null;
+
+if (!post) {
+  return Astro.redirect('/journal');
+}
+
+const metaTitle = `${post.title} | Journal | Madeleine Hochzeitsfotografie`;
+const metaDescription = post.excerpt || 'Journal-Einblick in Madeleines Hochzeitsreportagen.';
+
+const formatDate = (value?: string) => {
+  if (!value) return '';
+  try {
+    return new Date(value).toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  } catch {
+    return value;
+  }
+};
+
+const portableTextComponents = {
+  block: {
+    h2: ({ children }: { children: any }) => `<h2 class="mt-10 text-2xl font-display text-brand-cream">${children}</h2>`,
+    h3: ({ children }: { children: any }) => `<h3 class="mt-8 text-xl font-display text-brand-cream">${children}</h3>`,
+    normal: ({ children }: { children: any }) =>
+      `<p class="mt-4 leading-relaxed text-brand-cream/80">${children}</p>`,
+    blockquote: ({ children }: { children: any }) =>
+      `<blockquote class="mt-6 border-l-2 border-brand-bloom/60 pl-4 italic text-brand-cream/80">${children}</blockquote>`
+  },
+  marks: {
+    strong: ({ children }: { children: any }) => `<strong>${children}</strong>`,
+    em: ({ children }: { children: any }) => `<em>${children}</em>`
+  },
+  types: {
+    image: ({ value }: { value: any }) => {
+      const url = value?.asset?.url;
+      const alt = value?.alt || '';
+      const caption = value?.caption;
+      if (!url) return '';
+      return `
+        <figure class="mt-10">
+          <img src="${url}" alt="${alt}" class="w-full rounded-3xl border border-white/10 object-cover" loading="lazy" />
+          ${
+            caption
+              ? `<figcaption class="mt-2 text-sm text-brand-cream/60 text-center">${caption}</figcaption>`
+              : ''
+          }
+        </figure>
+      `;
+    }
+  }
+};
+
+const htmlBody = post.body ? toHTML(post.body, { components: portableTextComponents }) : '';
+---
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <article class="bg-brand-night/95">
+    <header class="relative isolate overflow-hidden pt-32 pb-16">
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-brand-night via-brand-midnight/90 to-brand-night"></div>
+      </div>
+      <div class="mx-auto max-w-4xl px-6 text-brand-cream text-center">
+        <span class="section-title inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-brand-bloom/75">
+          Journal
+        </span>
+        <h1 class="mt-6 font-display text-4xl leading-tight sm:text-5xl">
+          {post.title}
+        </h1>
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs uppercase tracking-[0.35em] text-brand-cream/60">
+          {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
+          {post.publishedAt && post.readingTime && <span class="inline-flex h-1 w-1 rounded-full bg-brand-cream/40"></span>}
+          {post.readingTime && <span>{post.readingTime}</span>}
+          {post.categories && post.categories.length > 0 && (
+            <span>{post.categories.join(', ')}</span>
+          )}
+        </div>
+      </div>
+      {post.coverUrl && (
+        <div class="mx-auto mt-12 max-w-5xl px-6">
+          <figure class="overflow-hidden rounded-[2.75rem] border border-white/10 shadow-[0_30px_90px_-55px_rgba(15,16,27,0.85)]">
+            <img src={post.coverUrl} alt={post.coverAlt || post.title} class="h-full w-full object-cover" loading="lazy" />
+          </figure>
+        </div>
+      )}
+    </header>
+
+    <section class="mx-auto max-w-3xl px-6 pb-20 text-brand-cream">
+      {post.excerpt && (
+        <p class="rounded-3xl border border-brand-bloom/20 bg-brand-midnight/60 px-6 py-5 text-sm text-brand-cream/75 shadow-[0_24px_70px_-50px_rgba(15,16,27,0.8)]">
+          {post.excerpt}
+        </p>
+      )}
+      <div class="prose prose-invert mt-10 max-w-none" set:html={htmlBody}></div>
+      <div class="mt-12 flex flex-wrap gap-4 text-sm">
+        <a href="/journal" class="btn-outline">Zurück zum Journal</a>
+        <a href="/kontakt#anfrage" class="btn-primary">Termin anfragen</a>
+      </div>
+    </section>
+  </article>
+
+  <ContactCTA />
+</BaseLayout>

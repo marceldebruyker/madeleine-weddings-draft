@@ -1,0 +1,188 @@
+---
+const defaultHeroImages = [
+  {
+    src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80',
+    alt: 'Paar bei goldenem Licht'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80',
+    alt: 'Freunde stoßen auf das Paar an'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1600&q=80',
+    alt: 'Paar Hand in Hand'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80',
+    alt: 'Detailaufnahme eines Bouquets'
+  }
+];
+
+const { images = [] } = Astro.props;
+
+const heroImages = (Array.isArray(images) && images.length > 0 ? images : defaultHeroImages).map((image, index) => ({
+  src: image?.src ?? defaultHeroImages[index % defaultHeroImages.length].src,
+  alt: image?.alt ?? defaultHeroImages[index % defaultHeroImages.length].alt
+}));
+
+const headline =
+  Astro.props?.headline && typeof Astro.props.headline === 'string'
+    ? Astro.props.headline
+    : 'Eure Liebe. Eure Geschichte. Zeitlos festgehalten.';
+const subline =
+  Astro.props?.subline && typeof Astro.props.subline === 'string'
+    ? Astro.props.subline
+    : 'Hochzeitsfotografie in Stuttgart und Umgebung, die berührt – authentisch, emotional und voller Leben.';
+---
+
+<section class="relative isolate overflow-hidden pt-36 pb-24">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-y-0 left-1/2 h-full w-[140%] -translate-x-1/2 bg-gradient-to-br from-brand-night via-brand-midnight to-brand-raisin opacity-80 blur-3xl"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(214,168,196,0.22),_transparent_55%)]"></div>
+  </div>
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-16 px-6 md:flex-row md:items-center">
+    <div class="max-w-xl">
+      <div class="section-title text-brand-bloom/80">Stuttgart &amp; darüber hinaus</div>
+      <h1 class="mt-6 font-display text-4xl leading-tight text-brand-cream sm:text-5xl">
+        {headline}
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-brand-cream/70">
+        {subline}
+      </p>
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a href="/kontakt#anfrage" class="btn-primary">Termin anfragen</a>
+        <a href="/portfolio" class="btn-secondary">Portfolio entdecken</a>
+      </div>
+      <dl class="mt-12 grid grid-cols-2 gap-6 text-sm text-brand-cream/70 sm:grid-cols-3">
+        <div>
+          <dt class="font-semibold text-brand-cream">120+ Paare</dt>
+          <dd>vertrauen auf Madeleine für ihre Erinnerungen</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-brand-cream">7 Jahre Erfahrung</dt>
+          <dd>mit Boutique-Hochzeiten &amp; Elopements</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-brand-cream">100% Fokus</dt>
+          <dd>auf Emotionen, Ästhetik und Details</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="relative w-full max-w-xl" data-hero-slider>
+      <div class="absolute -top-14 -left-12 h-28 w-28 rounded-full bg-brand-blush/25 blur-3xl"></div>
+      <div class="absolute bottom-[-3.5rem] right-[-4rem] h-56 w-56 rounded-full bg-brand-bloom/20 blur-3xl"></div>
+
+      <div class="relative rounded-[3.5rem] bg-gradient-to-br from-white/70 via-white/40 to-white/15 p-[1.5px] shadow-[0_32px_120px_-60px_rgba(15,15,40,0.45)]">
+        <div class="group relative overflow-hidden rounded-[3.35rem] bg-white/20 backdrop-blur-xl">
+          <div
+            data-hero-scroller
+            class="flex snap-x snap-mandatory overflow-x-auto scroll-smooth scrollbar-hide"
+            tabindex="0"
+            aria-live="polite"
+          >
+            {heroImages.map((image, index) => (
+              <figure
+                class="relative min-w-full snap-center"
+                aria-hidden={index === 0 ? 'false' : 'true'}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class="h-[28rem] w-full rounded-[3.35rem] object-cover sm:h-[32rem]"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              </figure>
+            ))}
+          </div>
+
+          <div class="absolute inset-x-0 bottom-4 flex items-center justify-between px-6 text-xs uppercase tracking-[0.3em] text-brand-night/70">
+            <button
+              type="button"
+              data-prev
+              class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/70 text-brand-night transition hover:border-brand-bloom/50 hover:text-brand-bloom focus:outline-none focus-visible:ring focus-visible:ring-brand-bloom/40"
+              aria-label="Vorheriges Bild"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <div class="flex w-full max-w-[7rem] items-center gap-3 px-4">
+              <span data-hero-indicator class="pointer-events-none select-none text-[0.65rem]">1 / {heroImages.length}</span>
+              <div class="relative h-[2px] flex-1 overflow-hidden rounded-full bg-brand-cream/40">
+                <span data-hero-progress class="absolute inset-y-0 left-0 bg-brand-bloom transition-all duration-500" style="width: 0%"></span>
+              </div>
+            </div>
+            <button
+              type="button"
+              data-next
+              class="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/70 text-brand-night transition hover:border-brand-bloom/50 hover:text-brand-bloom focus:outline-none focus-visible:ring focus-visible:ring-brand-bloom/40"
+              aria-label="Nächstes Bild"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<script is:inline>
+  const sliderRoot = document.querySelector('[data-hero-slider]');
+  const scroller = sliderRoot?.querySelector('[data-hero-scroller]');
+  const indicator = sliderRoot?.querySelector('[data-hero-indicator]');
+  const progress = sliderRoot?.querySelector('[data-hero-progress]');
+  const prevBtn = sliderRoot?.querySelector('[data-prev]');
+  const nextBtn = sliderRoot?.querySelector('[data-next]');
+
+  if (sliderRoot && scroller && indicator && progress) {
+    let index = 0;
+    const slides = Array.from(scroller.children);
+    const maxIndex = slides.length - 1;
+
+    const updateIndicator = () => {
+      indicator.textContent = `${index + 1} / ${slides.length}`;
+      const denominator = Math.max(1, maxIndex);
+      const percentage = maxIndex === 0 ? 100 : (index / denominator) * 100;
+      progress.style.width = `${Number.isFinite(percentage) ? percentage : 0}%`;
+    };
+
+    const scrollToIndex = (nextIndex, opts = { behavior: 'smooth' }) => {
+      index = Math.max(0, Math.min(maxIndex, nextIndex));
+      scroller.scrollTo({ left: index * scroller.clientWidth, behavior: opts.behavior });
+      updateIndicator();
+      slides.forEach((slide, slideIndex) => slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true'));
+    };
+
+    prevBtn?.addEventListener('click', () => scrollToIndex(index - 1));
+    nextBtn?.addEventListener('click', () => scrollToIndex(index + 1));
+
+    const handleScroll = () => {
+      const newIndex = Math.round(scroller.scrollLeft / scroller.clientWidth);
+      if (newIndex !== index) {
+        index = newIndex;
+        updateIndicator();
+      }
+    };
+
+    scroller.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', () => scrollToIndex(index, { behavior: 'instant' }));
+
+    const handleKeydown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        scrollToIndex(index - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        scrollToIndex(index + 1);
+      }
+    };
+
+    scroller.addEventListener('keydown', handleKeydown);
+
+    updateIndicator();
+    slides[0]?.setAttribute('aria-hidden', 'false');
+  }
+</script>

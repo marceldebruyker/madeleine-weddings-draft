@@ -1,0 +1,7 @@
+node_modules
+.dist
+dist
+.astro
+.svelte-kit
+.DS_Store
+.env
