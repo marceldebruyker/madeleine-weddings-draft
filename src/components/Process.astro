@@ -31,14 +31,14 @@ const steps = [
 ];
 ---
 <section id="prozess" class="mx-auto mt-32 max-w-6xl px-6">
-  <div class="grid gap-12 lg:grid-cols-[1fr,1.2fr] lg:items-start">
-    <div class="rounded-[2.5rem] bg-gradient-to-br from-brand-night via-brand-midnight to-brand-dusk text-brand-cream shadow-2xl shadow-black/50">
-      <div class="space-y-10 px-10 py-12">
+  <div class="grid gap-16 lg:grid-cols-[1fr,1.2fr] lg:items-start">
+    <div class="rounded-[2.75rem] bg-gradient-to-br from-brand-night via-brand-midnight to-brand-dusk text-brand-cream shadow-2xl shadow-black/50">
+      <div class="space-y-10 px-8 py-12 sm:px-10 sm:py-14">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.5em] text-brand-bloom/80">🗓️ So läuft's ab</p>
-          <h2 class="mt-4 font-display text-3xl leading-tight">Eure Reise mit mir</h2>
+          <h2 class="mt-4 font-display text-3xl leading-tight sm:text-4xl">Eure Reise mit mir</h2>
         </div>
-        <p class="text-sm text-brand-cream/70">
+        <p class="text-base leading-relaxed text-brand-cream/75">
           Transparente Schritte, klare Absprachen und eine Begleitung, die euch Ruhe schenkt. So wisst ihr immer, was als Nächstes passiert.
         </p>
         <a href="#faq" class="btn-secondary bg-brand-night/40 text-brand-cream hover:text-brand-cream">
@@ -46,17 +46,26 @@ const steps = [
         </a>
       </div>
     </div>
-    <div class="grid gap-6">
+    <div class="relative space-y-10 pl-6 sm:pl-8 md:pl-12">
+      <span
+        aria-hidden="true"
+        class="pointer-events-none absolute left-2 top-4 bottom-6 w-px bg-gradient-to-b from-brand-bloom/40 via-brand-cream/20 to-transparent sm:left-4 md:left-6"
+      ></span>
       {steps.map((step) => (
-        <article class="relative overflow-hidden rounded-3xl border border-white/10 bg-brand-raisin/70 p-8 shadow-md shadow-black/40 backdrop-blur">
-          <div class="flex items-start gap-6">
-            <div class="flex flex-col items-center gap-2 text-brand-cream">
+        <article class="relative overflow-hidden rounded-3xl border border-white/10 bg-brand-raisin/70 p-7 shadow-md shadow-black/40 backdrop-blur transition duration-300 ease-out hover:-translate-y-1 hover:border-brand-bloom/30">
+          <span
+            aria-hidden="true"
+            class="absolute -left-[1.35rem] top-8 flex h-8 w-8 items-center justify-center rounded-full border border-brand-bloom/40 bg-brand-night text-sm font-semibold text-brand-cream shadow-[0_10px_25px_-20px_rgba(214,168,196,0.8)] sm:-left-6"
+          >
+            {step.number}
+          </span>
+          <div class="grid gap-5 md:grid-cols-[auto,1fr] md:items-start">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-night/80 text-2xl text-brand-cream shadow-inner shadow-black/30 md:h-16 md:w-16">
               <span class="text-4xl">{step.icon}</span>
-              <span class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-cream/50">{step.number}</span>
             </div>
             <div>
-              <h3 class="font-display text-2xl text-brand-cream">{step.title}</h3>
-              <p class="mt-4 text-sm text-brand-cream/70">{step.description}</p>
+              <h3 class="font-display text-2xl text-brand-cream sm:text-[1.65rem]">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-brand-cream/75 sm:text-base">{step.description}</p>
             </div>
           </div>
         </article>
