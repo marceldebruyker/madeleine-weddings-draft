@@ -33,7 +33,7 @@ const steps = [
 <section id="prozess" class="mx-auto mt-32 max-w-6xl px-6">
   <div class="flex flex-col gap-12 lg:grid lg:grid-cols-[1fr,1.2fr] lg:items-start">
     <div class="rounded-[2.5rem] bg-gradient-to-br from-brand-night via-brand-midnight to-brand-dusk text-brand-cream shadow-2xl shadow-black/50">
-      <div class="space-y-9 px-6 py-12 sm:px-10 sm:py-14">
+      <div class="space-y-9 px-6 py-10 sm:px-10 sm:py-14">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.5em] text-brand-bloom/80">🗓️ So läuft's ab</p>
           <h2 class="mt-4 font-display text-3xl leading-tight sm:text-4xl">Eure Reise mit mir</h2>
@@ -46,9 +46,9 @@ const steps = [
         </a>
       </div>
     </div>
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-6 sm:grid-cols-2">
       {steps.map((step) => (
-        <article class="flex flex-col gap-4 rounded-3xl border border-white/10 bg-brand-raisin/75 p-6 shadow-md shadow-black/40 backdrop-blur transition duration-300 ease-out hover:-translate-y-1 hover:border-brand-bloom/30 sm:p-7">
+        <article class="flex flex-col gap-5 rounded-3xl border border-white/10 bg-brand-raisin/75 p-6 shadow-md shadow-black/40 backdrop-blur transition duration-300 ease-out hover:-translate-y-1 hover:border-brand-bloom/30 sm:p-7">
           <div class="flex items-center gap-4">
             <div class="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-brand-night/70 text-brand-cream shadow-inner shadow-black/30 sm:h-14 sm:w-14">
               <span class="text-xl sm:text-2xl">{step.icon}</span>
@@ -58,7 +58,7 @@ const steps = [
             </div>
             <h3 class="font-display text-2xl text-brand-cream sm:text-[1.65rem]">{step.title}</h3>
           </div>
-          <p class="text-sm leading-relaxed text-brand-cream/70 sm:text-base">
+          <p class="text-sm leading-relaxed text-brand-cream/75 sm:text-base">
             {step.description}
           </p>
         </article>
