@@ -1,11 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { getJournalPostBySlug } from '../../lib/sanityClient';
+import { getJournalPostBySlug, getJournalPosts } from '../../lib/sanityClient';
 import { toHTML } from '@portabletext/to-html';
 
+export async function getStaticPaths() {
+  const posts = await getJournalPosts();
+
+  const paths = await Promise.all(
+    posts
+      .filter((post) => Boolean(post.slug))
+      .map(async (post) => ({
+        params: { slug: post.slug },
+        props: {
+          initialPost: await getJournalPostBySlug(post.slug)
+        }
+      }))
+  );
+
+  return paths.filter((path) => Boolean(path.props.initialPost));
+}
+
 const { slug } = Astro.params;
-const post = slug ? await getJournalPostBySlug(slug) : null;
+const { initialPost } = Astro.props as { initialPost?: Awaited<ReturnType<typeof getJournalPostBySlug>> };
+const post = initialPost ?? (slug ? await getJournalPostBySlug(slug) : null);
 
 if (!post) {
   return Astro.redirect('/journal');
