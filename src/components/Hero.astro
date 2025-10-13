@@ -13,11 +13,11 @@ const heroImages = (Array.isArray(images) && images.length > 0 ? images : fallba
 const headline =
   Astro.props?.headline && typeof Astro.props.headline === 'string'
     ? Astro.props.headline
-    : 'Eure Liebe. Eure Geschichte. Zeitlos festgehalten.';
+    : 'Momente, die bleiben. Gefühle, die man sieht.';
 const subline =
   Astro.props?.subline && typeof Astro.props.subline === 'string'
     ? Astro.props.subline
-    : 'Hochzeitsfotografie in Stuttgart und Umgebung, die berührt – authentisch, emotional und voller Leben.';
+    : 'Als eure Hochzeitsfotografin begleite ich euch durch den schönsten Tag eures Lebens – diskret, einfühlsam und mit einem Blick für die Momente, die ihr niemals vergessen wollt. Im Raum Stuttgart und darüber hinaus.';
 ---
 
 <section class="relative isolate overflow-hidden pt-36 pb-24">
@@ -27,7 +27,7 @@ const subline =
   </div>
   <div class="mx-auto flex max-w-6xl flex-col items-center gap-16 px-6 md:flex-row md:items-center">
     <div class="max-w-xl">
-      <div class="section-title text-brand-bloom/80">Stuttgart &amp; darüber hinaus</div>
+      <div class="section-title text-brand-bloom/80">Hochzeitsfotografie Stuttgart</div>
       <h1 class="mt-6 font-display text-4xl leading-tight text-brand-cream sm:text-5xl">
         {headline}
       </h1>
